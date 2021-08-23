@@ -25,4 +25,12 @@ jobs:
         run: go fmt ./...
 
       - name: Testing
-        run: go test -short ./...
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+
+      - name: Send coverage data to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.txt
+          fail_ci_if_error: true
+          verbose: true
