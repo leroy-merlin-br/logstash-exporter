@@ -6,10 +6,10 @@ on:
       - main
   push:
     branches:
-      - '*'
+      - feat/release-pipelines
 
 jobs:
-  unit-testing:
+  code-analysis:
     name: "Code Analysis"
     runs-on: ubuntu-20.04
     steps:
