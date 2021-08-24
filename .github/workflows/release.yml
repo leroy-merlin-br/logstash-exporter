@@ -67,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          files: ./Dockerfile
-          platforms: linux/arm64,linux/amd64,darwin
+          file: ./Dockerfile
+          platforms: linux/arm64,linux/amd64
           push: true
           tags: leroymerlinbr/logstash-exporter:latest,leroymerlinbr/logstash-exporter:${{ steps.tag_version.outputs.new_tag }}
