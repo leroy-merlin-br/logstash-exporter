@@ -106,9 +106,9 @@ func init() {
 
 func main() {
 	var (
-		logstashEndpoint    = kingpin.Flag("logstash.endpoint", "The protocol, host and port on which logstash metrics API listens").Default("http://localhost:9600").String()
+		logstashEndpoint    = kingpin.Flag("logstash.endpoint", "The protocol, host and port on which logstash metrics API listens.").Default("http://localhost:9600").String()
 		exporterBindAddress = kingpin.Flag("listen.address", "Address on which to expose metrics and web interface.").Default(":9198").String()
-		logLevel            = kingpin.Flag("log.level", "Set log level to debug").Default("info").String()
+		logLevel            = kingpin.Flag("log.level", "The logging level to be defined.").Default("info").String()
 	)
 
 	kingpin.Version(version.Print("logstash_exporter"))

@@ -4,7 +4,7 @@ WORKDIR /src
 
 COPY ./ /src/
 
-RUN go build -a -tags netgo -o logstash-exporter .
+RUN go build -a -tags netgo -o logstash_exporter .
 
 FROM scratch as final
 
@@ -15,8 +15,8 @@ LABEL org.opencontainers.image.source="https://github.com/leroy-merlin-br/logsta
 LABEL org.opencontainers.image.licenses="Copyright © 2021 Leroy Merlin Brasil"
 LABEL org.opencontainers.image.vendor="Leroy Merlin Brasil"
 
-COPY --from=build /src/logstash-exporter /
+COPY --from=build /src/logstash_exporter /
 
 EXPOSE 9198
 
-ENTRYPOINT ["/logstash-exporter"]
+ENTRYPOINT ["/logstash_exporter"]
