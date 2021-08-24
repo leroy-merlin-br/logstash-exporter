@@ -1,17 +1,22 @@
-# See: https://hub.docker.com/_/golang/
-FROM golang:1.13 as golang
+FROM golang:1.16.7-alpine3.14 as build
 
-# Fetch the source
-RUN go get -u github.com/sequra/logstash_exporter
+WORKDIR /src
 
-# Get dependencies and build!
-RUN cd $GOPATH/src/github.com/sequra/logstash_exporter && \
-        make
+COPY ./ /src/
 
-# It looks like the `latest` tag uses uclibc
-# See: https://hub.docker.com/_/busybox/
-FROM busybox:latest 
-COPY --from=golang /go/src/github.com/sequra/logstash_exporter/logstash_exporter /
-LABEL maintainer devops@sequra.es
+RUN go build -a -tags netgo -o logstash-exporter .
+
+FROM scratch as final
+
+LABEL maintainer="boitata-sre@leroymerlin.com.br"
+LABEL description="Logstash exporter"
+LABEL org.opencontainers.image.authors="LMBR Site Reliability Team <boitata-sre@leroymerlin.com.br>"
+LABEL org.opencontainers.image.source="https://github.com/leroy-merlin-br/logstash-exporter"
+LABEL org.opencontainers.image.licenses="Copyright © 2021 Leroy Merlin Brasil"
+LABEL org.opencontainers.image.vendor="Leroy Merlin Brasil"
+
+COPY --from=build /src/logstash-exporter /
+
 EXPOSE 9198
-ENTRYPOINT ["/logstash_exporter"]
+
+ENTRYPOINT ["/logstash-exporter"]
