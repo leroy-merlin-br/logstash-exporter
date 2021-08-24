@@ -26,12 +26,13 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@v5.6
         with:
-          release_branches: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_branches: feat/release-pipelines
 
       - name: Create a GitHub release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
           release_name: ${{ steps.tag_version.outputs.new_tag }}
