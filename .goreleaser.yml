@@ -7,25 +7,14 @@ builds:
       - CGO_ENABLED=0
     goos:
       - linux
-      - windows
       - darwin
     goarch:
-      - 386
       - amd64
-      - arm
       - arm64
     goarm:
       - 6
       - 7
-    ignore:
-      - goos: darwin
-        goarch: 386
 
 archives:
   - format: zip
     name_template: "{{ .ProjectName }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}{{if .Arm}}{{.Arm}}{{end}}"
-
-dockers:
-  - image_templates:
-      - "docker.io/leroymerlinbr/logstash-exporter:{{ .Tag }}"
-      - "docker.io/leroymerlinbr/logstash-exporter:latest"
