@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feat/release-pipelines
 
 permissions:
   contents: write
@@ -33,7 +32,7 @@ jobs:
         uses: mathieudutour/github-tag-action@v5.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: feat/release-pipelines
+          release_branches: main
 
       - name: Create a GitHub release
         uses: actions/create-release@v1
