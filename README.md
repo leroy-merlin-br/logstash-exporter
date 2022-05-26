@@ -27,7 +27,7 @@ For pre-built binaries, check the [releases page](https://github.com/leroy-merli
 ### Docker
 
 ```sh
-docker run leroymerlinbr/logstash_exporter:latest
+docker run leroymerlinbr/logstash-exporter:latest
 ```
 
 ### CLI
