@@ -1,4 +1,4 @@
-name: 'Code Analysis'
+name: "Code Analysis"
 
 on:
   pull_request:
@@ -13,37 +13,37 @@ jobs:
       - name: Setup
         uses: actions/setup-go@v2
         with:
-          go-version: 1.16
+          go-version: 1.22
 
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Setup Codacy Analyze Tool
         run: |
-         curl -L https://github.com/codacy/codacy-analysis-cli/archive/master.tar.gz | \
-         tar xvz && cd codacy-analysis-cli-* && sudo make install \
-         && cd .. && rm -rf master.* codacy-analysis-cli-*
+          curl -L https://github.com/codacy/codacy-analysis-cli/archive/master.tar.gz | \
+          tar xvz && cd codacy-analysis-cli-* && sudo make install \
+          && cd .. && rm -rf master.* codacy-analysis-cli-*
 
       - name: Run aligncheck
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         run: |
-         codacy-analysis-cli analyze --provider gh \
-         --username leroy-merlin-br \
-         --project logstash_exporter \
-         --tool aligncheck \
-         --allow-network \
-         --upload \
-         --verbose
+          codacy-analysis-cli analyze --provider gh \
+          --username leroy-merlin-br \
+          --project logstash_exporter \
+          --tool aligncheck \
+          --allow-network \
+          --upload \
+          --verbose
 
       - name: Run deadcode
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         run: |
-         codacy-analysis-cli analyze --provider gh \
-         --username leroy-merlin-br \
-         --project logstash_exporter \
-         --tool deadcode \
-         --allow-network \
-         --upload \
-         --verbose
+          codacy-analysis-cli analyze --provider gh \
+          --username leroy-merlin-br \
+          --project logstash_exporter \
+          --tool deadcode \
+          --allow-network \
+          --upload \
+          --verbose
